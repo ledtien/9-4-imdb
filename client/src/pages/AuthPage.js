@@ -13,29 +13,24 @@ function AuthPage() {
 
   const onSignup = (e) => {
     e.preventDefault();
-    dispatch(authActions.register(email, password));
+    dispatch(authActions.login(email, password));
   };
 
-  if (user.loading) return <h1>Registering...</h1>;
+  if (user.loading) return <h1>Loading...</h1>;
   if (user.redirectToHomePage) return <Redirect to="/" />;
 
   return (
     <>
       <Form className="m-4">
         <Form.Group controlId="formBasicEmail" className="mb-4">
-          {/* <Form.Label>Email address</Form.Label> */}
           <Form.Control
             onChange={(e) => setEmail(e.target.value)}
             type="email"
             placeholder="Enter email"
             required
           />
-          {/* <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text> */}
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
-          {/* <Form.Label>Password</Form.Label> */}
           <Form.Control
             onChange={(e) => setPassword(e.target.value)}
             type="password"

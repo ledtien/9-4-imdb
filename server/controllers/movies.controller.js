@@ -18,9 +18,13 @@ moviesController.create = catchAsync(async (req, res, next) => {
 });
 
 moviesController.list = catchAsync(async (req, res, next) => {
-  const movie = await Movie.find({ user: req.userId }).populate("user", [
-    "name",
-  ]);
+  const pageNumber = 1;
+  const nPerPage = 10;
+
+  const movie = await Movie.find({})
+    .skip(pageNumber > 0 ? (pageNumber - 1) * nPerPage : 0)
+    .limit(nPerPage)
+    .populate("user", ["name"]);
   sendResponse(res, 200, "true", { movie }, null, "Get all movies!");
 });
 

@@ -14,9 +14,11 @@ const userReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case types.LOGIN_REQUEST:
     case types.REGISTER_REQUEST:
       return { ...state, loading: true };
 
+    case types.LOGIN_SUCCESS:
     case types.REGISTER_SUCCESS:
       const {
         accessToken,
@@ -30,6 +32,7 @@ const userReducer = (state = initialState, action) => {
         loading: false,
         redirectToHomePage: true,
       };
+    case types.LOGIN_FAILURE:
     case types.REGISTER_FAILURE:
     default:
       return state;

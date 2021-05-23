@@ -50,7 +50,13 @@ userController.login = catchAsync(async (req, res, next) => {
       error: "Wrong email or password!",
     });
   accessToken = await user.generateToken();
-  sendResponse(res, 200, "true", { accessToken }, "Logged in successfully!");
+  sendResponse(
+    res,
+    200,
+    "true",
+    { user, accessToken },
+    "Logged in successfully!"
+  );
 });
 
 module.exports = userController;
