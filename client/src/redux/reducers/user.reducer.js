@@ -7,6 +7,7 @@ const initialState = {
   email: [],
   password: "",
   isAuthenticated: !!token,
+  loading: false,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -14,7 +15,7 @@ const userReducer = (state = initialState, action) => {
 
   switch (type) {
     case types.REGISTER_REQUEST:
-      return state;
+      return { ...state, loading: true };
 
     case types.REGISTER_SUCCESS:
       const {
@@ -22,7 +23,13 @@ const userReducer = (state = initialState, action) => {
         user: { email },
       } = payload;
       localStorage.setItem("accessToken", accessToken);
-      return { ...state, accessToken, email };
+      return {
+        ...state,
+        accessToken,
+        email,
+        loading: false,
+        redirectToHomePage: true,
+      };
     case types.REGISTER_FAILURE:
     default:
       return state;

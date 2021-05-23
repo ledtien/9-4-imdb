@@ -5,7 +5,7 @@ import { authActions } from "../redux/actions/user.actions";
 import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-function AuthPage() {
+function RegisterPage() {
   const { user } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -16,12 +16,16 @@ function AuthPage() {
     dispatch(authActions.register(email, password));
   };
 
-  if (user.loading) return <h1>Registering...</h1>;
-  if (user.redirectToHomePage) return <Redirect to="/" />;
-
   return (
     <>
       <Form className="m-4">
+        <Form.Group controlId="formBasicEmail" className="mb-4">
+          {/* <Form.Label>Email address</Form.Label> */}
+          <Form.Control type="text" placeholder="Your name" required />
+          {/* <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text> */}
+        </Form.Group>
         <Form.Group controlId="formBasicEmail" className="mb-4">
           {/* <Form.Label>Email address</Form.Label> */}
           <Form.Control
@@ -43,20 +47,28 @@ function AuthPage() {
             required
           />
         </Form.Group>
+        <Form.Group controlId="formBasicPassword" className="mt-4">
+          {/* <Form.Label>Password</Form.Label> */}
+          <Form.Control
+            type="password"
+            placeholder="Confirm Password"
+            required
+          />
+        </Form.Group>
         <Button
           onClick={onSignup}
           variant="warning"
           type="submit"
           className="mt-3"
         >
-          Sign-in
+          Create your IMDB account
         </Button>
       </Form>
       <p>
-        Don't have an account?
-        <Link to="/register">
+        Already have an account?
+        <Link to="/login">
           <Button variant="primary" size="sm" className="m-1">
-            Sign-up
+            Sign-in
           </Button>
         </Link>
       </p>
@@ -64,4 +76,4 @@ function AuthPage() {
   );
 }
 
-export { AuthPage };
+export { RegisterPage };
